@@ -13,7 +13,8 @@ return new class extends Migration
 {
     Schema::create('menu_items', function (Blueprint $table) {
         $table->id();
-        $table->unsignedBigInteger('restaurant_id'); // Foreign key to menus
+        $table->unsignedBigInteger('restaurant_id'); // Foreign key to restaurants
+        $table->unsignedBigInteger('promo_id')->nullable(); // This line moved up and 'after()' removed
         $table->string('name');
         $table->text('description')->nullable();
         $table->decimal('price', 8, 2);
@@ -21,16 +22,11 @@ return new class extends Migration
         $table->string('category')->nullable();
         $table->boolean('is_available')->default(true);
         $table->timestamps();
-        
-        $table->unsignedBigInteger('promo_id')->nullable()->after('is_available');
+    
         $table->foreign('promo_id')->references('id')->on('promotions')->onDelete('set null');
-   
-         // Foreign key constraint
-         $table->foreign('restaurant_id')
-         ->references('id')
-         ->on('restaurants')
-         ->onDelete('cascade');
+        $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
     });
+    
 }
 
 

@@ -26,7 +26,7 @@ class RestaurantController extends Controller
             'description' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
-            'image' => 'required|string',
+            'image' => 'nullable|string',
             'cuisine' => 'required|string'
         ]);
 
@@ -63,10 +63,10 @@ class RestaurantController extends Controller
         return response()->json($restaurant);
     }
 
-    public function getByOwner($ownerId)
+    public function getByOwner($owner_id)
     {
         return response()->json(
-            Restaurant::where('owner_id', $ownerId)->get()
+            Restaurant::where('owner_id', $owner_id)->get()
         );
     }
 

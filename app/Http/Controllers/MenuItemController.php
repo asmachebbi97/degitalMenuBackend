@@ -21,7 +21,7 @@ class MenuItemController extends Controller
             'name' => 'required|string',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'image' => 'required|string',
+            'image' => 'nullable|string',
             'category' => 'required|string'
         ]);
 
@@ -40,7 +40,7 @@ class MenuItemController extends Controller
             'name' => 'string',
             'description' => 'string',
             'price' => 'numeric',
-            'image' => 'string',
+            'image' => 'nullable|string',
             'category' => 'string',
             'is_available' => 'boolean'
         ]);
