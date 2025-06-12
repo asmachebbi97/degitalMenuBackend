@@ -18,9 +18,10 @@ return new class extends Migration
         $table->text('description')->nullable();
         $table->string('address');
         $table->string('phone');
-        $table->string('image')->nullable();
+        $table->blob('image')->nullable();
         $table->string('cuisine');
-        $table->boolean('is_active')->default(true);
+        $table->boolean('is_active')->default(false);
+        $table->boolean('available')->default(false);
         $table->timestamps();
 
         $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');

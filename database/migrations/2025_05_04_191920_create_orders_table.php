@@ -16,6 +16,8 @@ return new class extends Migration
         $table->unsignedBigInteger('customer_id');
         $table->unsignedBigInteger('restaurant_id');
         $table->string('status')->default('pending');
+        $table->string('payment_method')->default('on Delivery');
+        $table->string('payment_status') ; 
         $table->decimal('total_amount', 10, 2);
         $table->timestamps();
 

@@ -68,6 +68,40 @@ class AuthController extends Controller
     }
 }
 
+public function checkUserExist(Request $request)
+{
+    // Validate the request
+    $request->validate([
+        'email' => 'required|email',
+    ]);
+
+    // Check if user exists
+    $userExists = User::where('email', $request->email)->exists();
+
+    return response()->json([
+        'exists' => $userExists
+    ]);
+}
+
+public function resetPassword(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+
+    $user->password = Hash::make($request->password);
+    $user->save();
+
+    return response()->json(['message' => 'Password has been reset successfully']);
+}
+
 
 public function login(Request $request)
 {
@@ -103,6 +137,18 @@ public function login(Request $request)
     ]);
 }
 
+public function updateUser(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+    
+    $validated = $request->validate([
+        'email' => 'string',
+        'name' => 'string',
+    ]);
+
+    $user->update($validated);
+    return response()->json($user);
+}
 
     public function logout(Request $request)
     {

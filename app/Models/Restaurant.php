@@ -15,6 +15,7 @@ class Restaurant extends Model
         'image',
         'cuisine',
         'is_active',
+        'available'
     ];
 
     public function owner()
